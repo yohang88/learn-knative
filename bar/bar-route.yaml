@@ -1,0 +1,10 @@
+apiVersion: serving.knative.dev/v1
+kind: Route
+metadata:
+  name: bar
+  labels:
+    serving.knative.dev/visibility: cluster-local
+spec:
+  traffic:
+    - revisionName: bar-ztpc2
+      percent: 100

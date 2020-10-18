@@ -1,0 +1,22 @@
+apiVersion: serving.knative.dev/v1
+kind: Configuration
+metadata:
+  name: foo
+spec:
+  template:
+    metadata:
+      annotations:
+        autoscaling.knative.dev/minScale: "1"
+        autoscaling.knative.dev/maxScale: "5"
+        autoscaling.knative.dev/target: "10"
+    spec:
+      containers:
+        - image: docker.io/yohang/go-foo:latest
+          ports:
+          - containerPort: 8080
+          livenessProbe:
+            httpGet:
+              path: /
+          readinessProbe:
+            httpGet:
+              path: /

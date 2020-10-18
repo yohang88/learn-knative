@@ -1,0 +1,10 @@
+apiVersion: serving.knative.dev/v1
+kind: Route
+metadata:
+  name: foo
+  labels:
+    serving.knative.dev/visibility: cluster-local
+spec:
+  traffic:
+    - revisionName: foo-s67sb
+      percent: 100

@@ -1,0 +1,37 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: myapi-gateway
+spec:
+  selector:
+    istio: ingressgateway
+  servers:
+  - port:
+      number: 80
+      name: http
+      protocol: HTTP
+    hosts:
+    - "*"
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: myapi-virtualsvc
+spec:
+  hosts:
+  - "*"
+  gateways:
+  - myapi-gateway
+  http:
+  - match:
+    - uri:
+        prefix: /api/v1/foo
+    route:
+    - destination:
+        host: foo-s67sb-private
+  - match:
+    - uri:
+        prefix: /api/v1/bar
+    route:
+    - destination:
+        host: bar-ztpc2-private
